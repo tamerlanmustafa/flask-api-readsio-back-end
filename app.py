@@ -20,4 +20,5 @@ app.register_blueprint(books_blueprint)
 app.register_blueprint(reviews_blueprint)
 
 
-app.run()
+if __name__ == '__main__':
+    app.run()
