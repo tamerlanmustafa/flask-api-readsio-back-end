@@ -17,10 +17,14 @@ app = Flask(__name__)
 
 @app.after_request
 def add_cors_headers(response):
-    response.headers.add('Access-Control-Allow-Origin', 'https://readsio.netlify.app/')
+    allowed_origins = ['https://readsio.netlify.app', 'http://localhost:5173']
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers.add('Access-Control-Allow-Origin', origin)
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
     return response
+
 
 app.register_blueprint(authentication_blueprint)
 app.register_blueprint(books_blueprint)
