@@ -14,7 +14,7 @@ from reviews_blueprint import reviews_blueprint
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app, origins=["https://readsio.netlify.app"]) 
 app.register_blueprint(authentication_blueprint)
 app.register_blueprint(books_blueprint)
 app.register_blueprint(reviews_blueprint)
