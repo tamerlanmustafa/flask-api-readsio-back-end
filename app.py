@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, g
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 import jwt
@@ -12,20 +13,8 @@ from reviews_blueprint import reviews_blueprint
 
 load_dotenv()
 
-
 app = Flask(__name__)
-
-@app.after_request
-def add_cors_headers(response):
-    allowed_origins = ['https://readsio.netlify.app', 'http://localhost:5173']
-    origin = request.headers.get('Origin')
-    if origin in allowed_origins:
-        response.headers.add('Access-Control-Allow-Origin', origin)
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
-    return response
-
-
+CORS(app) 
 app.register_blueprint(authentication_blueprint)
 app.register_blueprint(books_blueprint)
 app.register_blueprint(reviews_blueprint)
